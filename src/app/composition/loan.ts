@@ -15,11 +15,9 @@ const loanRepository = new SupabaseLoanRepository();
 const equipmentRepository = new SupabaseEquipmentRepository();
 
 // 2. Instantiate use cases
-export const createLoanUseCase = new CreateLoanUseCase(
-  loanRepository,
-  equipmentRepository
-);
+export const createLoanUseCase = new CreateLoanUseCase(loanRepository, equipmentRepository);
 export const listLoansByUserUseCase = new ListLoansByUserUseCase(loanRepository);
 export const listActiveLoansUseCase = new ListActiveLoansUseCase(loanRepository);
 export const returnLoanUseCase = new ReturnLoanUseCase(loanRepository);
 export const markLoanAsDamagedUseCase = new MarkLoanAsDamagedUseCase(loanRepository);
+

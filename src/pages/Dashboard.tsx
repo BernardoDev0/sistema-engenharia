@@ -17,23 +17,19 @@ const DashboardContent = () => {
           <div className="flex items-center gap-6">
             <h1 className="text-xl font-semibold">Dashboard</h1>
             <nav className="flex gap-4">
-              <Button
-                variant="ghost"
-                onClick={() => navigate("/equipment")}
-              >
+              <Button variant="ghost" onClick={() => navigate("/equipment")}>
                 Equipment
               </Button>
-              <Button
-                variant="ghost"
-                onClick={() => navigate("/my-equipment")}
-              >
+              <Button variant="ghost" onClick={() => navigate("/my-equipment")}>
                 My Equipment
               </Button>
+              {(roles.includes("ADMIN") || roles.includes("OPERATIONS_MANAGER") || roles.includes("COMPLIANCE_ESG")) && (
+                <Button variant="ghost" onClick={() => navigate("/executive-dashboard")}>
+                  Executive
+                </Button>
+              )}
               {roles.includes("ADMIN") && (
-                <Button
-                  variant="ghost"
-                  onClick={() => navigate("/users")}
-                >
+                <Button variant="ghost" onClick={() => navigate("/users")}>
                   Users
                 </Button>
               )}
