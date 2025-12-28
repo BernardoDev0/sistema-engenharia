@@ -14,6 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
+      equipment: {
+        Row: {
+          category: string
+          certification: string | null
+          created_at: string
+          id: string
+          name: string
+          quantity_in_use: number
+          status: Database["public"]["Enums"]["equipment_status"]
+          total_quantity: number
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          certification?: string | null
+          created_at?: string
+          id?: string
+          name: string
+          quantity_in_use?: number
+          status?: Database["public"]["Enums"]["equipment_status"]
+          total_quantity?: number
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          certification?: string | null
+          created_at?: string
+          id?: string
+          name?: string
+          quantity_in_use?: number
+          status?: Database["public"]["Enums"]["equipment_status"]
+          total_quantity?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
@@ -88,6 +124,7 @@ export type Database = {
         | "OPERATIONS_MANAGER"
         | "FIELD_TECHNICIAN"
         | "COMPLIANCE_ESG"
+      equipment_status: "AVAILABLE" | "IN_USE" | "MAINTENANCE" | "DISCARDED"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -221,6 +258,7 @@ export const Constants = {
         "FIELD_TECHNICIAN",
         "COMPLIANCE_ESG",
       ],
+      equipment_status: ["AVAILABLE", "IN_USE", "MAINTENANCE", "DISCARDED"],
     },
   },
 } as const
