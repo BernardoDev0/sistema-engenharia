@@ -252,6 +252,12 @@ const UsersContent = () => {
               >
                 Equipment
               </Button>
+              <Button
+                variant="ghost"
+                onClick={() => navigate("/my-equipment")}
+              >
+                My Equipment
+              </Button>
             </nav>
           </div>
           <Button variant="outline" onClick={signOut}>
