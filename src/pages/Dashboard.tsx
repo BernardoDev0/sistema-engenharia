@@ -12,7 +12,19 @@ const DashboardContent = () => {
     <div className="min-h-screen bg-background">
       <header className="border-b bg-card">
         <div className="container mx-auto flex items-center justify-between px-4 py-4">
-          <h1 className="text-xl font-semibold">Dashboard</h1>
+          <div className="flex items-center gap-6">
+            <h1 className="text-xl font-semibold">Dashboard</h1>
+            {roles.includes("ADMIN") && (
+              <nav className="flex gap-4">
+                <Button
+                  variant="ghost"
+                  onClick={() => window.location.href = "/users"}
+                >
+                  Users
+                </Button>
+              </nav>
+            )}
+          </div>
           <Button variant="outline" onClick={signOut}>
             Sign Out
           </Button>

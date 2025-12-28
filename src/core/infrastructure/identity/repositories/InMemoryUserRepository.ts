@@ -32,6 +32,10 @@ export class InMemoryUserRepository implements UserRepository {
     return this.usersByEmail.get(email) ?? null;
   }
 
+  async findAll(): Promise<User[]> {
+    return Array.from(this.usersById.values());
+  }
+
   async save(user: User): Promise<User> {
     if (!this.usersById.has(user.id)) {
       // For a pure technical adapter, treat save as an upsert.
