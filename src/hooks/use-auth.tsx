@@ -78,7 +78,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({
+    // 1) Real Supabase login
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
@@ -87,10 +88,39 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       throw error;
     }
 
-    // Wait for roles to be fetched
+    // 2) Fetch fresh session
+    const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+    if (sessionError) {
+      await supabase.auth.signOut();
+      throw sessionError;
+    }
+
+    const currentSession = sessionData.session;
+    if (!currentSession || !currentSession.user) {
+      await supabase.auth.signOut();
+      throw new Error("Unable to establish a valid session.");
+    }
+
+    // 3) Fetch user profile to validate active status
+    const { data: profile, error: profileError } = await supabase
+      .from("profiles")
+      .select("id,is_active")
+      .eq("id", currentSession.user.id)
+      .maybeSingle();
+
+    if (profileError) {
+      await supabase.auth.signOut();
+      throw new Error(profileError.message || "Failed to load user profile.");
+    }
+
+    if (!profile || profile.is_active === false) {
+      await supabase.auth.signOut();
+      throw new Error("Your account is inactive or not provisioned. Please contact an administrator.");
+    }
+
+    // 4) Let the auth state listener update user/session/roles.
     await new Promise((resolve) => setTimeout(resolve, 500));
   };
-
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
     if (error) {
