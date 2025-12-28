@@ -21,6 +21,21 @@ export enum Permission {
 
   /** General write/update access to business data. */
   EDIT_DATA = "EDIT_DATA",
+
+  /** Manage operations and field activities. */
+  MANAGE_OPERATIONS = "MANAGE_OPERATIONS",
+
+  /** Execute field operations and tasks. */
+  EXECUTE_OPERATIONS = "EXECUTE_OPERATIONS",
+
+  /** View assigned tasks and work orders. */
+  VIEW_ASSIGNED_TASKS = "VIEW_ASSIGNED_TASKS",
+
+  /** View compliance and ESG reports. */
+  VIEW_REPORTS = "VIEW_REPORTS",
+
+  /** Manage compliance and ESG data. */
+  MANAGE_COMPLIANCE = "MANAGE_COMPLIANCE",
 }
 
 /**
