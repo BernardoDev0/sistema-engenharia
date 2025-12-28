@@ -1,5 +1,6 @@
 // src/pages/Dashboard.tsx
 
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/use-auth";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { Button } from "@/components/ui/button";
@@ -7,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 
 const DashboardContent = () => {
   const { user, roles, signOut } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-background">
@@ -14,16 +16,22 @@ const DashboardContent = () => {
         <div className="container mx-auto flex items-center justify-between px-4 py-4">
           <div className="flex items-center gap-6">
             <h1 className="text-xl font-semibold">Dashboard</h1>
-            {roles.includes("ADMIN") && (
-              <nav className="flex gap-4">
+            <nav className="flex gap-4">
+              <Button
+                variant="ghost"
+                onClick={() => navigate("/equipment")}
+              >
+                Equipment
+              </Button>
+              {roles.includes("ADMIN") && (
                 <Button
                   variant="ghost"
-                  onClick={() => window.location.href = "/users"}
+                  onClick={() => navigate("/users")}
                 >
                   Users
                 </Button>
-              </nav>
-            )}
+              )}
+            </nav>
           </div>
           <Button variant="outline" onClick={signOut}>
             Sign Out
