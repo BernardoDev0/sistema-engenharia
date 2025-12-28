@@ -11,6 +11,9 @@ import Users from "@/pages/Users";
 import Equipment from "@/pages/Equipment";
 import EquipmentDetail from "@/pages/EquipmentDetail";
 import MyEquipment from "@/pages/MyEquipment";
+import ExecutiveDashboard from "@/pages/ExecutiveDashboard";
+import ESGReports from "@/pages/ESGReports";
+import AuditLog from "@/pages/AuditLog";
 import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +33,9 @@ export const AppRoot = () => (
             <Route path="/equipment" element={<Equipment />} />
             <Route path="/equipment/:id" element={<EquipmentDetail />} />
             <Route path="/my-equipment" element={<MyEquipment />} />
+            <Route path="/executive-dashboard" element={<ExecutiveDashboard />} />
+            <Route path="/esg-reports" element={<ESGReports />} />
+            <Route path="/audit-log" element={<AuditLog />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
