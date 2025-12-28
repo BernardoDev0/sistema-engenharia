@@ -5,11 +5,27 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "@/hooks/use-auth";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import type { EquipmentStatus, EquipmentId } from "@/core/domain/equipment/Equipment";
+import type { UserId } from "@/core/domain/identity/User";
 import { getEquipmentByIdUseCase } from "@/app/composition/equipment";
-import { ArrowLeft } from "lucide-react";
+import { createLoanUseCase } from "@/app/composition/loan";
+import { ArrowLeft, Package } from "lucide-react";
+import { z } from "zod";
+
+const checkoutSchema = z.object({
+  quantity: z.number().int().min(1, { message: "Quantity must be at least 1" }),
+});
 
 interface EquipmentDetails {
   id: string;
@@ -27,9 +43,13 @@ interface EquipmentDetails {
 const EquipmentDetailContent = () => {
   const [equipment, setEquipment] = useState<EquipmentDetails | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [showCheckoutDialog, setShowCheckoutDialog] = useState(false);
+  const [checkoutQuantity, setCheckoutQuantity] = useState(1);
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [checkoutError, setCheckoutError] = useState("");
 
   const { id } = useParams<{ id: string }>();
-  const { signOut, roles } = useAuth();
+  const { user, signOut, roles } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -72,6 +92,52 @@ const EquipmentDetailContent = () => {
     }
   };
 
+  const handleCheckout = async () => {
+    if (!equipment || !user) return;
+
+    setCheckoutError("");
+
+    const result = checkoutSchema.safeParse({ quantity: checkoutQuantity });
+    if (!result.success) {
+      setCheckoutError(result.error.issues[0].message);
+      return;
+    }
+
+    if (checkoutQuantity > equipment.quantityAvailable) {
+      setCheckoutError(`Only ${equipment.quantityAvailable} available`);
+      return;
+    }
+
+    setIsCheckingOut(true);
+
+    try {
+      await createLoanUseCase.execute({
+        userId: user.id as UserId,
+        equipmentId: equipment.id as EquipmentId,
+        quantity: checkoutQuantity,
+      });
+
+      toast({
+        title: "Success",
+        description: `Checked out ${checkoutQuantity} ${equipment.name}`,
+      });
+
+      setShowCheckoutDialog(false);
+      setCheckoutQuantity(1);
+      
+      // Refresh equipment details
+      await fetchEquipmentDetails(equipment.id);
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to checkout equipment",
+        variant: "destructive",
+      });
+    } finally {
+      setIsCheckingOut(false);
+    }
+  };
+
   const getStatusColor = (status: EquipmentStatus) => {
     switch (status) {
       case "AVAILABLE":
@@ -99,6 +165,9 @@ const EquipmentDetailContent = () => {
               </Button>
               <Button variant="ghost" onClick={() => navigate("/equipment")}>
                 Equipment
+              </Button>
+              <Button variant="ghost" onClick={() => navigate("/my-equipment")}>
+                My Equipment
               </Button>
               {isAdmin && (
                 <Button variant="ghost" onClick={() => navigate("/users")}>
@@ -186,8 +255,20 @@ const EquipmentDetailContent = () => {
                     <p className="text-sm">
                       {new Date(equipment.updatedAt).toLocaleString()}
                     </p>
-                  </div>
+              </div>
+
+              {equipment.quantityAvailable > 0 && equipment.status !== 'DISCARDED' && (
+                <div className="mt-6">
+                  <Button
+                    onClick={() => setShowCheckoutDialog(true)}
+                    className="w-full"
+                  >
+                    <Package className="mr-2 h-4 w-4" />
+                    Checkout Equipment
+                  </Button>
                 </div>
+              )}
+            </div>
               </div>
             </div>
 
@@ -217,6 +298,65 @@ const EquipmentDetailContent = () => {
             </div>
           </div>
         ) : null}
+
+        {/* Checkout Dialog */}
+        <Dialog open={showCheckoutDialog} onOpenChange={setShowCheckoutDialog}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle>Checkout Equipment</DialogTitle>
+              <DialogDescription>
+                Select the quantity you'd like to check out.
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="space-y-4">
+              {equipment && (
+                <>
+                  <div className="rounded-lg border p-4 bg-muted/50">
+                    <p className="font-medium mb-1">{equipment.name}</p>
+                    <p className="text-sm text-muted-foreground">
+                      Available: {equipment.quantityAvailable} of {equipment.totalQuantity}
+                    </p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="quantity">Quantity</Label>
+                    <Input
+                      id="quantity"
+                      type="number"
+                      min={1}
+                      max={equipment.quantityAvailable}
+                      value={checkoutQuantity}
+                      onChange={(e) => {
+                        setCheckoutQuantity(parseInt(e.target.value) || 1);
+                        setCheckoutError("");
+                      }}
+                      disabled={isCheckingOut}
+                      className={checkoutError ? "border-destructive" : ""}
+                    />
+                    {checkoutError && (
+                      <p className="text-sm text-destructive">{checkoutError}</p>
+                    )}
+                  </div>
+                </>
+              )}
+
+              <div className="flex justify-end gap-3">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setShowCheckoutDialog(false)}
+                  disabled={isCheckingOut}
+                >
+                  Cancel
+                </Button>
+                <Button onClick={handleCheckout} disabled={isCheckingOut}>
+                  {isCheckingOut ? "Processing..." : "Confirm Checkout"}
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </main>
     </div>
   );

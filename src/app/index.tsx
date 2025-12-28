@@ -10,6 +10,7 @@ import Dashboard from "@/pages/Dashboard";
 import Users from "@/pages/Users";
 import Equipment from "@/pages/Equipment";
 import EquipmentDetail from "@/pages/EquipmentDetail";
+import MyEquipment from "@/pages/MyEquipment";
 import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ export const AppRoot = () => (
             <Route path="/users" element={<Users />} />
             <Route path="/equipment" element={<Equipment />} />
             <Route path="/equipment/:id" element={<EquipmentDetail />} />
+            <Route path="/my-equipment" element={<MyEquipment />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

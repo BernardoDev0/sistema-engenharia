@@ -196,6 +196,9 @@ const EquipmentContent = () => {
               <Button variant="ghost" onClick={() => navigate("/dashboard")}>
                 Dashboard
               </Button>
+              <Button variant="ghost" onClick={() => navigate("/my-equipment")}>
+                My Equipment
+              </Button>
               {isAdmin && (
                 <Button variant="ghost" onClick={() => navigate("/users")}>
                   Users

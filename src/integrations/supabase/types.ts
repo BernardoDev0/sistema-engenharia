@@ -50,6 +50,47 @@ export type Database = {
         }
         Relationships: []
       }
+      loans: {
+        Row: {
+          created_at: string
+          damage_comment: string | null
+          equipment_id: string
+          id: string
+          quantity: number
+          returned_at: string | null
+          status: Database["public"]["Enums"]["loan_status"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          damage_comment?: string | null
+          equipment_id: string
+          id?: string
+          quantity: number
+          returned_at?: string | null
+          status?: Database["public"]["Enums"]["loan_status"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          damage_comment?: string | null
+          equipment_id?: string
+          id?: string
+          quantity?: number
+          returned_at?: string | null
+          status?: Database["public"]["Enums"]["loan_status"]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "loans_equipment_id_fkey"
+            columns: ["equipment_id"]
+            isOneToOne: false
+            referencedRelation: "equipment"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string
@@ -125,6 +166,7 @@ export type Database = {
         | "FIELD_TECHNICIAN"
         | "COMPLIANCE_ESG"
       equipment_status: "AVAILABLE" | "IN_USE" | "MAINTENANCE" | "DISCARDED"
+      loan_status: "ACTIVE" | "RETURNED" | "DAMAGED"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -259,6 +301,7 @@ export const Constants = {
         "COMPLIANCE_ESG",
       ],
       equipment_status: ["AVAILABLE", "IN_USE", "MAINTENANCE", "DISCARDED"],
+      loan_status: ["ACTIVE", "RETURNED", "DAMAGED"],
     },
   },
 } as const

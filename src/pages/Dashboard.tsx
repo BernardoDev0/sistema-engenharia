@@ -23,6 +23,12 @@ const DashboardContent = () => {
               >
                 Equipment
               </Button>
+              <Button
+                variant="ghost"
+                onClick={() => navigate("/my-equipment")}
+              >
+                My Equipment
+              </Button>
               {roles.includes("ADMIN") && (
                 <Button
                   variant="ghost"
