@@ -1,38 +1,75 @@
 // src/pages/Dashboard.tsx
 
-import { identityFacade } from "@/app/composition/identity";
+import { useAuth } from "@/hooks/use-auth";
+import { ProtectedRoute } from "@/components/ProtectedRoute";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
-const Dashboard = () => {
-  // Placeholder wiring to the Identity facade.
-  void identityFacade;
+const DashboardContent = () => {
+  const { user, roles, signOut } = useAuth();
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="w-full max-w-2xl space-y-6 px-4 text-center">
-        <header className="space-y-2">
-          <h1 className="text-3xl font-semibold tracking-tight">Dashboard</h1>
-          <p className="text-sm text-muted-foreground">
-            Identity wiring is in place. Real authentication and data will be added later.
-          </p>
-        </header>
+    <div className="min-h-screen bg-background">
+      <header className="border-b bg-card">
+        <div className="container mx-auto flex items-center justify-between px-4 py-4">
+          <h1 className="text-xl font-semibold">Dashboard</h1>
+          <Button variant="outline" onClick={signOut}>
+            Sign Out
+          </Button>
+        </div>
+      </header>
 
-        <section className="rounded-lg border bg-card p-6 text-left shadow-sm">
-          <h2 className="mb-2 text-lg font-medium">Current user</h2>
-          <p className="text-sm text-muted-foreground">
-            No user is logged in yet. Once authentication is implemented, the
-            active user from <code>IdentityFacade</code> will appear here.
-          </p>
-        </section>
+      <main className="container mx-auto px-4 py-8">
+        <div className="max-w-2xl space-y-6">
+          <section className="rounded-lg border bg-card p-6 shadow-sm">
+            <h2 className="mb-4 text-lg font-medium">Account Information</h2>
+            <div className="space-y-3">
+              <div>
+                <p className="text-sm text-muted-foreground">Email</p>
+                <p className="font-medium">{user?.email || "N/A"}</p>
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">User ID</p>
+                <p className="font-mono text-sm">{user?.id || "N/A"}</p>
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground mb-2">Roles</p>
+                {roles.length > 0 ? (
+                  <div className="flex flex-wrap gap-2">
+                    {roles.map((role) => (
+                      <Badge key={role} variant="secondary">
+                        {role}
+                      </Badge>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-muted-foreground">
+                    No roles assigned. Contact your administrator.
+                  </p>
+                )}
+              </div>
+            </div>
+          </section>
 
-        <section className="rounded-lg border bg-card p-6 text-left shadow-sm">
-          <h2 className="mb-2 text-lg font-medium">Getting started</h2>
-          <p className="text-sm text-muted-foreground">
-            This is an empty state. Use this area to surface identity-aware
-            content after wiring real auth and roles.
-          </p>
-        </section>
-      </div>
+          <section className="rounded-lg border bg-card p-6 shadow-sm">
+            <h2 className="mb-2 text-lg font-medium">Welcome</h2>
+            <p className="text-sm text-muted-foreground">
+              You are successfully authenticated. This is a protected area that
+              requires a valid session. Additional modules (Equipment, Inventory)
+              will be wired here once confirmed.
+            </p>
+          </section>
+        </div>
+      </main>
     </div>
+  );
+};
+
+const Dashboard = () => {
+  return (
+    <ProtectedRoute>
+      <DashboardContent />
+    </ProtectedRoute>
   );
 };
 
