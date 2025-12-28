@@ -1,6 +1,6 @@
 // src/app/composition/identity.ts
 
-import { InMemoryUserRepository } from "../../core/infrastructure/identity/repositories/InMemoryUserRepository";
+import { SupabaseUserRepository } from "../../core/infrastructure/identity/repositories/SupabaseUserRepository";
 import type { UserRepository } from "../../core/application/identity/ports/UserRepository";
 import {
   IdentityFacade,
@@ -21,7 +21,7 @@ import {
 // services are introduced here.
 
 // 1. Instantiate technical infrastructure adapters.
-const userRepository: UserRepository = new InMemoryUserRepository();
+const userRepository: UserRepository = new SupabaseUserRepository();
 
 // 2. Instantiate application-layer use cases.
 //

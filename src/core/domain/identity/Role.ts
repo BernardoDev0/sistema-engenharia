@@ -12,7 +12,7 @@ import { Permission, permissionImplies } from "./Permission";
  * - Do **not** store roles directly on user records to avoid privilege
  *   escalation and simplify Row-Level Security policies.
  */
-export type RoleName = "admin" | "employee" | "viewer";
+export type RoleName = "ADMIN" | "OPERATIONS_MANAGER" | "FIELD_TECHNICIAN" | "COMPLIANCE_ESG";
 
 export interface RoleProps {
   name: RoleName;
