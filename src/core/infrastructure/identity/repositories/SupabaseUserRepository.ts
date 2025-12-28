@@ -102,6 +102,23 @@ export class SupabaseUserRepository implements UserRepository {
     return this.mapProfileToUser(data);
   }
 
+  async findAll(): Promise<User[]> {
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      throw new Error(`Failed to find all users: ${error.message}`);
+    }
+
+    if (!data || data.length === 0) {
+      return [];
+    }
+
+    return data.map((profile) => this.mapProfileToUser(profile));
+  }
+
   async save(user: User): Promise<User> {
     const { error } = await supabase
       .from("profiles")

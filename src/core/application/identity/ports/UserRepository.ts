@@ -17,6 +17,8 @@ export interface UserRepository {
 
   findByEmail(email: string): Promise<User | null>;
 
+  findAll(): Promise<User[]>;
+
   /**
    * Generic upsert-style save.
    *
