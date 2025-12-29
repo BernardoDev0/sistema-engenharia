@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -229,10 +228,6 @@ const ExecutiveDashboardContent = () => {
   );
 };
 
-const ExecutiveDashboard = () => (
-  <ProtectedRoute>
-    <ExecutiveDashboardContent />
-  </ProtectedRoute>
-);
+const ExecutiveDashboard = () => <ExecutiveDashboardContent />;
 
 export default ExecutiveDashboard;

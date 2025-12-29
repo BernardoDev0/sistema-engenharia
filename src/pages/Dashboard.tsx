@@ -1,9 +1,7 @@
 // src/pages/Dashboard.tsx
 
 import { useAuth } from "@/hooks/use-auth";
-import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { Badge } from "@/components/ui/badge";
-import { AppLayout } from "@/components/layout/AppLayout";
 
 const DashboardContent = () => {
   const { user, roles } = useAuth();
@@ -57,13 +55,7 @@ const DashboardContent = () => {
 };
 
 const Dashboard = () => {
-  return (
-    <ProtectedRoute>
-      <AppLayout>
-        <DashboardContent />
-      </AppLayout>
-    </ProtectedRoute>
-  );
+  return <DashboardContent />;
 };
 
 export default Dashboard;

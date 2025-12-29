@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/use-auth";
-import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
@@ -411,11 +410,7 @@ const MyEquipmentContent = () => {
 };
 
 const MyEquipment = () => {
-  return (
-    <ProtectedRoute>
-      <MyEquipmentContent />
-    </ProtectedRoute>
-  );
+  return <MyEquipmentContent />;
 };
 
 export default MyEquipment;

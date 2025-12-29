@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -50,31 +49,7 @@ const AuditLogContent = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-background/60">
-      <header className="border-b border-border/60 bg-background/70 backdrop-blur-xl">
-        <div className="container mx-auto flex items-center justify-between px-4 py-4">
-          <div className="flex items-center gap-6">
-            <h1 className="text-xl font-semibold tracking-tight">Log de auditoria</h1>
-            <nav className="flex gap-2 text-sm">
-              <Button variant="ghost" onClick={() => navigate("/dashboard")}>
-                Início
-              </Button>
-              <Button variant="ghost" onClick={() => navigate("/executive-dashboard")}>
-                Executivo
-              </Button>
-            </nav>
-          </div>
-          <div className="flex items-center gap-3">
-            <Badge variant="outline" className="rounded-full px-3 py-1 text-xs tracking-wide">
-              Compliance
-            </Badge>
-            <Button variant="outline" onClick={signOut}>
-              Sair
-            </Button>
-          </div>
-        </div>
-      </header>
-
+    <div className="min-h-[calc(100vh-3rem)] bg-background">
       <main className="container mx-auto px-4 py-8 space-y-6">
         <section>
           <Card className="bg-card/70 backdrop-blur-xl border-border/60 shadow-lg">
@@ -124,10 +99,6 @@ const AuditLogContent = () => {
   );
 };
 
-const AuditLog = () => (
-  <ProtectedRoute>
-    <AuditLogContent />
-  </ProtectedRoute>
-);
+const AuditLog = () => <AuditLogContent />;
 
 export default AuditLog;
