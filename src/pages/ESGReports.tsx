@@ -78,36 +78,14 @@ const ESGReportsContent = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-background/60">
-      <header className="border-b border-border/60 bg-background/70 backdrop-blur-xl">
-        <div className="container mx-auto flex items-center justify-between px-4 py-4">
-          <div className="flex items-center gap-6">
-            <h1 className="text-xl font-semibold tracking-tight">Relatórios ESG</h1>
-            <nav className="flex gap-2 text-sm">
-              <Button variant="ghost" onClick={() => navigate("/dashboard")}>
-                Início
-              </Button>
-              <Button variant="ghost" onClick={() => navigate("/executive-dashboard")}>
-                Executivo
-              </Button>
-            </nav>
-          </div>
-          <div className="flex items-center gap-3">
-            <Badge variant="outline" className="rounded-full px-3 py-1 text-xs tracking-wide">
-              ESG
-            </Badge>
-            <Button variant="outline" onClick={signOut}>
-              Sair
-            </Button>
-          </div>
-        </div>
-      </header>
-
+    <div className="min-h-[calc(100vh-3rem)] bg-gradient-to-br from-background via-background to-background/60">
       <main className="container mx-auto px-4 py-8 space-y-6">
         <section className="flex flex-wrap items-center justify-between gap-4">
           <div className="space-y-1">
-            <h2 className="text-base font-semibold">Filtros</h2>
-            <p className="text-xs text-muted-foreground">As métricas são derivadas diretamente de empréstimos e devoluções reais.</p>
+            <h1 className="text-xl font-semibold tracking-tight">Relatórios ESG</h1>
+            <p className="text-xs text-muted-foreground">
+              As métricas são derivadas diretamente de empréstimos e devoluções reais.
+            </p>
           </div>
           <div className="flex items-center gap-3">
             <Select value={granularity} onValueChange={(v: "month" | "year") => setGranularity(v)}>

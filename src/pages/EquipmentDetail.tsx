@@ -154,34 +154,7 @@ const EquipmentDetailContent = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b bg-card">
-        <div className="container mx-auto flex items-center justify-between px-4 py-4">
-          <div className="flex items-center gap-6">
-            <h1 className="text-xl font-semibold">Detalhes do equipamento</h1>
-            <nav className="flex gap-4">
-              <Button variant="ghost" onClick={() => navigate("/dashboard")}>
-                Painel
-              </Button>
-              <Button variant="ghost" onClick={() => navigate("/equipment")}>
-                Equipamentos
-              </Button>
-              <Button variant="ghost" onClick={() => navigate("/my-equipment")}>
-                Meus equipamentos
-              </Button>
-              {isAdmin && (
-                <Button variant="ghost" onClick={() => navigate("/users")}>
-                  Usuários
-                </Button>
-              )}
-            </nav>
-          </div>
-          <Button variant="outline" onClick={signOut}>
-            Sair
-          </Button>
-        </div>
-      </header>
-
+    <div className="min-h-[calc(100vh-3rem)] bg-background">
       <main className="container mx-auto px-4 py-8">
         <Button
           variant="ghost"

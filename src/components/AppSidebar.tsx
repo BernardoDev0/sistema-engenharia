@@ -200,8 +200,9 @@ export function AppSidebar() {
                       <SidebarMenuSub>
                         {group.children!.filter((child) => canAccess(child.roles)).map((child) => {
                           const childActive = isActivePath(child.to);
+                          const key = `${group.id}-${child.to}-${child.label}`;
                           return (
-                            <li key={child.to}>
+                            <li key={key}>
                               <SidebarMenuSubButton
                                 asChild
                                 size="sm"
