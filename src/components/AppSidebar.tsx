@@ -167,7 +167,7 @@ export function AppSidebar() {
                         asChild
                         isActive={active}
                         tooltip={group.label}
-                        className="flex-1 rounded-md border border-transparent bg-transparent px-2 py-2 text-[13px] font-medium data-[active=true]:border-l-2 data-[active=true]:border-sidebar-primary data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground hover:bg-sidebar-accent/60 transition-colors"
+                        className="flex-1 rounded-md bg-transparent px-2 py-2 text-[13px] font-medium data-[active=true]:bg-sidebar-accent/60 data-[active=true]:text-sidebar-accent-foreground hover:bg-sidebar-accent/40 transition-colors"
                       >
                         <NavLink
                           to={targetPath}
