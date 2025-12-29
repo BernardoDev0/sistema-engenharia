@@ -77,6 +77,17 @@ const NAV_GROUPS: NavGroup[] = [
     ],
   },
   {
+    id: "finance",
+    label: "Financeiro & Contratos",
+    to: "/finance/overview",
+    icon: FileText,
+    children: [
+      { label: "Visão geral", to: "/finance/overview" },
+      { label: "Fornecedores", to: "/finance/suppliers", roles: ["ADMIN", "OPERATIONS_MANAGER"] },
+      { label: "Contratos", to: "/finance/contracts" },
+    ],
+  },
+  {
     id: "admin",
     label: "Usuários",
     to: "/users",
