@@ -13,12 +13,12 @@ const loginSchema = z.object({
   email: z
     .string()
     .trim()
-    .email({ message: "Invalid email address" })
-    .max(255, { message: "Email must be less than 255 characters" }),
+    .email({ message: "Email inválido" })
+    .max(255, { message: "O e-mail deve ter menos de 255 caracteres" }),
   password: z
     .string()
-    .min(6, { message: "Password must be at least 6 characters" })
-    .max(100, { message: "Password must be less than 100 characters" }),
+    .min(6, { message: "A senha deve ter pelo menos 6 caracteres" })
+    .max(100, { message: "A senha deve ter menos de 100 caracteres" }),
 });
 
 const Login = () => {
@@ -73,13 +73,13 @@ const Login = () => {
     try {
       await signIn(email, password);
       toast({
-        title: "Success",
-        description: "You have been logged in successfully.",
+        title: "Sucesso",
+        description: "Você entrou no sistema com sucesso.",
       });
     } catch (error: any) {
       toast({
-        title: "Authentication failed",
-        description: error.message || "Invalid email or password.",
+        title: "Falha na autenticação",
+        description: error.message || "E-mail ou senha inválidos.",
         variant: "destructive",
       });
     } finally {
@@ -91,19 +91,19 @@ const Login = () => {
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="w-full max-w-md space-y-6">
         <div className="space-y-2 text-center">
-          <h1 className="text-3xl font-semibold tracking-tight">Sign In</h1>
+          <h1 className="text-3xl font-semibold tracking-tight">Entrar</h1>
           <p className="text-sm text-muted-foreground">
-            Enter your credentials to access your account
+            Informe suas credenciais para acessar sua conta
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">E-mail</Label>
             <Input
               id="email"
               type="email"
-              placeholder="name@company.com"
+              placeholder="nome@empresa.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               disabled={isLoading}
@@ -115,11 +115,11 @@ const Login = () => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">Senha</Label>
             <Input
               id="password"
               type="password"
-              placeholder="Enter your password"
+              placeholder="Digite sua senha"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               disabled={isLoading}
@@ -131,12 +131,12 @@ const Login = () => {
           </div>
 
           <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading ? "Signing in..." : "Sign In"}
+            {isLoading ? "Entrando..." : "Entrar"}
           </Button>
         </form>
 
         <div className="text-center text-sm text-muted-foreground">
-          <p>No account? Contact your administrator.</p>
+          <p>Sem acesso? Entre em contato com o administrador.</p>
         </div>
       </div>
     </div>

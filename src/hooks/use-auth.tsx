@@ -115,7 +115,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     if (!profile || profile.is_active === false) {
       await supabase.auth.signOut();
-      throw new Error("Your account is inactive or not provisioned. Please contact an administrator.");
+      throw new Error("Sua conta está inativa ou não foi provisionada. Entre em contato com um administrador.");
     }
 
     // 4) Let the auth state listener update user/session/roles.
