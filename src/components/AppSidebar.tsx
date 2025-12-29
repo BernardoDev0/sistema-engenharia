@@ -67,7 +67,8 @@ const NAV_GROUPS: NavGroup[] = [
   },
   {
     id: "compliance",
-    label: "Compliance",
+    label: "Compliance & ESG",
+    to: "/esg-reports",
     icon: ShieldCheck,
     roles: ["ADMIN", "OPERATIONS_MANAGER", "COMPLIANCE_ESG"],
     children: [
@@ -77,7 +78,8 @@ const NAV_GROUPS: NavGroup[] = [
   },
   {
     id: "admin",
-    label: "Administração",
+    label: "Administração do Sistema",
+    to: "/users",
     icon: UsersIcon,
     roles: ["ADMIN"],
     children: [
@@ -133,18 +135,16 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar collapsible="icon" className="border-r border-sidebar-border bg-background/80 text-sidebar-foreground">
-      <div className="flex h-full flex-col gap-4 px-3 py-4 font-sans">
-        <SidebarHeader className="pb-0">
-          <div className="flex items-center gap-3 rounded-2xl bg-card/80 px-3 py-2 shadow-sm">
-            <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-sidebar-primary/10 text-sidebar-primary">
+    <Sidebar collapsible="offcanvas" className="border-r border-sidebar-border bg-sidebar text-sidebar-foreground">
+      <div className="flex h-full flex-col gap-2 px-3 py-4 font-sans">
+        <SidebarHeader className="pb-1">
+          <div className="flex items-center gap-3 px-2 py-1">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-sidebar-primary/15 text-sidebar-primary">
               <LayoutDashboard className="h-5 w-5" />
             </div>
-            <div className="flex flex-col group-data-[collapsible=icon]:hidden">
-              <span className="text-[11px] font-medium uppercase tracking-[0.24em] text-sidebar-foreground/60">
-                Plataforma ESG
-              </span>
-              <span className="text-sm font-semibold">Equipment Control</span>
+            <div className="flex flex-col text-xs font-medium text-sidebar-foreground/70">
+              <span className="uppercase tracking-[0.22em]">Plataforma ESG</span>
+              <span className="text-sm font-semibold text-sidebar-foreground">Equipment Control</span>
             </div>
           </div>
         </SidebarHeader>
@@ -159,53 +159,44 @@ export function AppSidebar() {
                   const hasChildren = !!group.children?.length;
                   const isOpen = openGroups[group.id] ?? true;
 
+                  const targetPath = group.to ?? group.children?.[0]?.to ?? "/dashboard";
+
                   return (
                     <SidebarMenuItem key={group.id} className="mt-0">
-                      <div className="flex items-center gap-1">
-                        <SidebarMenuButton
-                          asChild={!!group.to}
-                          isActive={active}
-                          tooltip={group.label}
-                          className="flex-1 rounded-2xl bg-transparent px-3 py-2 text-[13px] font-medium data-[active=true]:bg-card data-[active=true]:shadow-md data-[active=true]:text-foreground hover:bg-card/80 hover:shadow-sm transition-all"
+                      <SidebarMenuButton
+                        asChild
+                        isActive={active}
+                        tooltip={group.label}
+                        className="flex-1 rounded-md border border-transparent bg-transparent px-2 py-2 text-[13px] font-medium data-[active=true]:border-l-2 data-[active=true]:border-sidebar-primary data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground hover:bg-sidebar-accent/60 transition-colors"
+                      >
+                        <NavLink
+                          to={targetPath}
+                          end={!hasChildren}
+                          onClick={() => {
+                            if (hasChildren) {
+                              handleToggleGroup(group.id);
+                            }
+                          }}
+                          className="flex items-center justify-between gap-3"
                         >
-                          {group.to ? (
-                            <NavLink to={group.to} end className="flex items-center gap-3">
-                              <div className="flex h-8 w-8 items-center justify-center rounded-2xl bg-sidebar-primary/5 text-sidebar-primary">
-                                <Icon className="h-4 w-4" />
-                              </div>
-                              <span className="group-data-[collapsible=icon]:hidden">
-                                {group.label}
-                              </span>
-                            </NavLink>
-                          ) : (
-                            <div className="flex items-center gap-3">
-                              <div className="flex h-8 w-8 items-center justify-center rounded-2xl bg-sidebar-primary/5 text-sidebar-primary">
-                                <Icon className="h-4 w-4" />
-                              </div>
-                              <span className="group-data-[collapsible=icon]:hidden">
-                                {group.label}
-                              </span>
+                          <div className="flex items-center gap-3">
+                            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-sidebar-primary/10 text-sidebar-primary">
+                              <Icon className="h-4 w-4" />
                             </div>
-                          )}
-                        </SidebarMenuButton>
-
-                        {hasChildren && (
-                          <button
-                            type="button"
-                            onClick={() => handleToggleGroup(group.id)}
-                            className="group-data-[collapsible=icon]:hidden inline-flex h-8 w-8 items-center justify-center rounded-xl text-sidebar-foreground/70 hover:bg-card/80 hover:text-sidebar-primary transition-colors ml-1"
-                          >
+                            <span>{group.label}</span>
+                          </div>
+                          {hasChildren && (
                             <ChevronRight
-                              className={`h-3.5 w-3.5 transform transition-transform duration-200 ${
+                              className={`h-3.5 w-3.5 transform text-sidebar-foreground/70 transition-transform duration-200 ${
                                 isOpen ? "rotate-90" : "rotate-0"
                               }`}
                             />
-                          </button>
-                        )}
-                      </div>
+                          )}
+                        </NavLink>
+                      </SidebarMenuButton>
 
-                      {hasChildren && isOpen && sidebarState !== "collapsed" && (
-                        <SidebarMenuSub className="border-l-0 px-0 pl-4">
+                      {hasChildren && isOpen && (
+                        <SidebarMenuSub className="mt-1 border-l border-sidebar-border/60 pl-4">
                           {group.children!.filter((child) => canAccess(child.roles)).map((child) => {
                             const childActive = isActivePath(child.to);
                             const key = `${group.id}-${child.to}-${child.label}`;
@@ -215,7 +206,7 @@ export function AppSidebar() {
                                   asChild
                                   size="sm"
                                   isActive={childActive}
-                                  className="hover-scale data-[active=true]:bg-card data-[active=true]:text-foreground rounded-xl px-3"
+                                  className="rounded-md px-2 py-1 text-[12px] text-sidebar-foreground/90 hover:bg-sidebar-accent data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground"
                                 >
                                   <NavLink to={child.to} end className="flex items-center gap-2 text-[12px]">
                                     <span className="h-1.5 w-1.5 rounded-full bg-sidebar-foreground/40" />
@@ -235,25 +226,23 @@ export function AppSidebar() {
           </SidebarGroup>
         </SidebarContent>
 
-        <SidebarFooter className="mt-auto space-y-2 border-t border-sidebar-border pt-3">
+        <SidebarFooter className="mt-auto space-y-2 border-t border-sidebar-border/70 pt-3">
           <button
             type="button"
             onClick={toggleTheme}
-            className="flex w-full items-center gap-2 rounded-2xl bg-card/60 px-3 py-2 text-[13px] text-sidebar-foreground/80 hover:bg-card hover:text-foreground transition-colors"
+            className="flex w-full items-center gap-2 rounded-md bg-transparent px-2 py-2 text-[13px] text-sidebar-foreground/80 hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground transition-colors"
           >
             {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-            <span className="group-data-[collapsible=icon]:hidden">
-              {theme === "dark" ? "Modo claro" : "Modo escuro"}
-            </span>
+            <span>{theme === "dark" ? "Modo claro" : "Modo escuro"}</span>
           </button>
 
           <button
             type="button"
             onClick={signOut}
-            className="flex w-full items-center gap-2 rounded-2xl bg-destructive/5 px-3 py-2 text-[13px] text-destructive hover:bg-destructive/15 hover:text-destructive-foreground transition-colors"
+            className="flex w-full items-center gap-2 rounded-md bg-transparent px-2 py-2 text-[13px] text-destructive hover:bg-destructive/15 hover:text-destructive-foreground transition-colors"
           >
             <LogOut className="h-4 w-4" />
-            <span className="group-data-[collapsible=icon]:hidden">Sair</span>
+            <span>Sair</span>
           </button>
         </SidebarFooter>
       </div>
