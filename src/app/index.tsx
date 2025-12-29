@@ -42,14 +42,14 @@ export const AppRoot = () => (
                   </ProtectedRoute>
                 }
               >
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/users" element={<Users />} />
-                <Route path="/equipment" element={<Equipment />} />
-                <Route path="/equipment/:id" element={<EquipmentDetail />} />
-                <Route path="/my-equipment" element={<MyEquipment />} />
-                <Route path="/executive-dashboard" element={<ExecutiveDashboard />} />
-                <Route path="/esg-reports" element={<ESGReports />} />
-                <Route path="/audit-log" element={<AuditLog />} />
+                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="users" element={<Users />} />
+                <Route path="equipment" element={<Equipment />} />
+                <Route path="equipment/:id" element={<EquipmentDetail />} />
+                <Route path="my-equipment" element={<MyEquipment />} />
+                <Route path="executive-dashboard" element={<ExecutiveDashboard />} />
+                <Route path="esg-reports" element={<ESGReports />} />
+                <Route path="audit-log" element={<AuditLog />} />
               </Route>
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
