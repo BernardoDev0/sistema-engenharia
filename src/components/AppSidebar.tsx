@@ -82,11 +82,6 @@ const NAV_GROUPS: NavGroup[] = [
     to: "/users",
     icon: UsersIcon,
     roles: ["ADMIN"],
-    children: [
-      { label: "Usuários", to: "/users" },
-      // "Papéis" navega para Usuários, onde os papéis são geridos
-      { label: "Papéis", to: "/users" },
-    ],
   },
 ];
 
