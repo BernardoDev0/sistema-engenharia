@@ -208,8 +208,7 @@ export function AppSidebar() {
                                   isActive={childActive}
                                   className="rounded-md px-2 py-1 text-[12px] text-sidebar-foreground/90 hover:bg-sidebar-accent data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground"
                                 >
-                                  <NavLink to={child.to} end className="flex items-center gap-2 text-[12px]">
-                                    <span className="h-1.5 w-1.5 rounded-full bg-sidebar-foreground/40" />
+                                  <NavLink to={child.to} end className="flex items-center text-[12px]">
                                     <span>{child.label}</span>
                                   </NavLink>
                                 </SidebarMenuSubButton>
