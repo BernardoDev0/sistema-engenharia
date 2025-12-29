@@ -188,23 +188,23 @@ const MyEquipmentContent = () => {
       <header className="border-b bg-card">
         <div className="container mx-auto flex items-center justify-between px-4 py-4">
           <div className="flex items-center gap-6">
-            <h1 className="text-xl font-semibold">My Equipment</h1>
+            <h1 className="text-xl font-semibold">Meus equipamentos</h1>
             <nav className="flex gap-4">
               <Button variant="ghost" onClick={() => navigate("/dashboard")}>
-                Dashboard
+                Painel
               </Button>
               <Button variant="ghost" onClick={() => navigate("/equipment")}>
-                Equipment
+                Equipamentos
               </Button>
               {isAdmin && (
                 <Button variant="ghost" onClick={() => navigate("/users")}>
-                  Users
+                  Usuários
                 </Button>
               )}
             </nav>
           </div>
           <Button variant="outline" onClick={signOut}>
-            Sign Out
+            Sair
           </Button>
         </div>
       </header>
@@ -216,32 +216,32 @@ const MyEquipmentContent = () => {
           className="mb-6"
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
-          Browse Equipment
+          Ver equipamentos
         </Button>
 
         {isLoading ? (
           <div className="flex items-center justify-center py-12">
             <div className="text-center">
               <div className="mb-4 h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent mx-auto" />
-              <p className="text-sm text-muted-foreground">Loading your equipment...</p>
+              <p className="text-sm text-muted-foreground">Carregando seus equipamentos...</p>
             </div>
           </div>
         ) : (
           <div className="space-y-8">
             {/* Active Loans Section */}
             <section>
-              <h2 className="text-2xl font-semibold mb-4">Currently In Possession</h2>
+              <h2 className="text-2xl font-semibold mb-4">Atualmente em posse</h2>
               {activeLoans.length === 0 ? (
                 <div className="rounded-lg border bg-card p-12 text-center">
                   <p className="text-muted-foreground">
-                    You don't have any equipment checked out at the moment.
+                    Você não possui nenhum equipamento emprestado no momento.
                   </p>
                   <Button
                     variant="link"
                     onClick={() => navigate("/equipment")}
                     className="mt-4"
                   >
-                    Browse available equipment
+                    Ver equipamentos disponíveis
                   </Button>
                 </div>
               ) : (
@@ -268,11 +268,11 @@ const MyEquipmentContent = () => {
 
                         <div className="space-y-2 text-sm">
                           <div className="flex justify-between">
-                            <span className="text-muted-foreground">Quantity:</span>
+                            <span className="text-muted-foreground">Quantidade:</span>
                             <span className="font-medium">{loan.quantity}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="text-muted-foreground">Borrowed:</span>
+                            <span className="text-muted-foreground">Retirado em:</span>
                             <span className="font-medium">
                               {new Date(loan.createdAt).toLocaleDateString()}
                             </span>
@@ -287,7 +287,7 @@ const MyEquipmentContent = () => {
                             className="flex-1"
                           >
                             <PackageCheck className="mr-2 h-4 w-4" />
-                            Return OK
+                            Devolver OK
                           </Button>
                           <Button
                             size="sm"
@@ -296,7 +296,7 @@ const MyEquipmentContent = () => {
                             className="flex-1"
                           >
                             <PackageX className="mr-2 h-4 w-4" />
-                            Damaged
+                            Danificado
                           </Button>
                         </div>
                       </div>
@@ -309,7 +309,7 @@ const MyEquipmentContent = () => {
             {/* History Section */}
             {historyLoans.length > 0 && (
               <section>
-                <h2 className="text-2xl font-semibold mb-4">Return History</h2>
+                <h2 className="text-2xl font-semibold mb-4">Histórico de devoluções</h2>
                 <div className="space-y-3">
                   {historyLoans.map((loan) => (
                     <div
@@ -325,24 +325,24 @@ const MyEquipmentContent = () => {
                             </Badge>
                           </div>
                           <p className="text-sm text-muted-foreground">
-                            {loan.equipmentCategory} • Qty: {loan.quantity}
+                            {loan.equipmentCategory} • Qtde: {loan.quantity}
                           </p>
                           <div className="flex gap-4 text-xs text-muted-foreground">
                             <span>
-                              Borrowed: {new Date(loan.createdAt).toLocaleDateString()}
+                              Retirado: {new Date(loan.createdAt).toLocaleDateString()}
                             </span>
                             {loan.returnedAt && (
                               <span>
-                                Returned: {new Date(loan.returnedAt).toLocaleDateString()}
+                                Devolvido: {new Date(loan.returnedAt).toLocaleDateString()}
                               </span>
                             )}
                           </div>
                           {loan.damageComment && (
-                            <div className="mt-2 rounded bg-destructive/10 p-2">
-                              <p className="text-xs font-medium text-destructive mb-1">
-                                Damage Report:
-                              </p>
-                              <p className="text-xs text-muted-foreground">
+                              <div className="mt-2 rounded bg-destructive/10 p-2">
+                                <p className="text-xs font-medium text-destructive mb-1">
+                                  Relato de dano:
+                                </p>
+                                <p className="text-xs text-muted-foreground">
                                 {loan.damageComment}
                               </p>
                             </div>
@@ -363,27 +363,27 @@ const MyEquipmentContent = () => {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>
-              {returnType === "OK" ? "Return Equipment" : "Report Damaged Equipment"}
+              {returnType === "OK" ? "Devolver equipamento" : "Reportar equipamento danificado"}
             </AlertDialogTitle>
             <AlertDialogDescription>
               {returnType === "OK" ? (
                 <span>
-                  Confirm that you're returning{" "}
-                  <strong>{selectedLoan?.equipmentName}</strong> in good condition.
+                  Confirme que você está devolvendo {" "}
+                  <strong>{selectedLoan?.equipmentName}</strong> em boas condições.
                 </span>
               ) : (
                 <div className="space-y-4">
                   <p>
-                    Report damage for <strong>{selectedLoan?.equipmentName}</strong>.
-                    Please provide details about the damage.
+                    Registre o dano para <strong>{selectedLoan?.equipmentName}</strong>.
+                    Forneça detalhes sobre o problema.
                   </p>
                   <div className="space-y-2">
-                    <Label htmlFor="damageComment">Damage Description *</Label>
+                    <Label htmlFor="damageComment">Descrição do dano *</Label>
                     <Textarea
                       id="damageComment"
                       value={damageComment}
                       onChange={(e) => setDamageComment(e.target.value)}
-                      placeholder="Describe the damage..."
+                      placeholder="Descreva o dano..."
                       rows={4}
                       disabled={isReturning}
                     />
@@ -393,7 +393,7 @@ const MyEquipmentContent = () => {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel disabled={isReturning}>Cancel</AlertDialogCancel>
+            <AlertDialogCancel disabled={isReturning}>Cancelar</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleConfirmReturn}
               disabled={isReturning}
@@ -401,7 +401,7 @@ const MyEquipmentContent = () => {
                 returnType === "DAMAGED" ? "bg-destructive hover:bg-destructive/90" : ""
               }
             >
-              {isReturning ? "Processing..." : "Confirm"}
+              {isReturning ? "Processando..." : "Confirmar"}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

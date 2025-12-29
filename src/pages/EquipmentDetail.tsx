@@ -158,26 +158,26 @@ const EquipmentDetailContent = () => {
       <header className="border-b bg-card">
         <div className="container mx-auto flex items-center justify-between px-4 py-4">
           <div className="flex items-center gap-6">
-            <h1 className="text-xl font-semibold">Equipment Details</h1>
+            <h1 className="text-xl font-semibold">Detalhes do equipamento</h1>
             <nav className="flex gap-4">
               <Button variant="ghost" onClick={() => navigate("/dashboard")}>
-                Dashboard
+                Painel
               </Button>
               <Button variant="ghost" onClick={() => navigate("/equipment")}>
-                Equipment
+                Equipamentos
               </Button>
               <Button variant="ghost" onClick={() => navigate("/my-equipment")}>
-                My Equipment
+                Meus equipamentos
               </Button>
               {isAdmin && (
                 <Button variant="ghost" onClick={() => navigate("/users")}>
-                  Users
+                  Usuários
                 </Button>
               )}
             </nav>
           </div>
           <Button variant="outline" onClick={signOut}>
-            Sign Out
+            Sair
           </Button>
         </div>
       </header>
@@ -189,14 +189,14 @@ const EquipmentDetailContent = () => {
           className="mb-6"
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Equipment
+          Voltar para equipamentos
         </Button>
 
         {isLoading ? (
           <div className="flex items-center justify-center py-12">
             <div className="text-center">
               <div className="mb-4 h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent mx-auto" />
-              <p className="text-sm text-muted-foreground">Loading equipment...</p>
+              <p className="text-sm text-muted-foreground">Carregando equipamento...</p>
             </div>
           </div>
         ) : equipment ? (
@@ -218,18 +218,18 @@ const EquipmentDetailContent = () => {
               <div className="grid gap-6 md:grid-cols-2">
                 <div className="space-y-4">
                   <div>
-                    <p className="text-sm text-muted-foreground mb-1">Total Quantity</p>
+                    <p className="text-sm text-muted-foreground mb-1">Quantidade total</p>
                     <p className="text-2xl font-semibold">{equipment.totalQuantity}</p>
                   </div>
 
                   <div>
-                    <p className="text-sm text-muted-foreground mb-1">Quantity In Use</p>
+                    <p className="text-sm text-muted-foreground mb-1">Quantidade em uso</p>
                     <p className="text-2xl font-semibold">{equipment.quantityInUse}</p>
                   </div>
 
                   <div>
                     <p className="text-sm text-muted-foreground mb-1">
-                      Quantity Available
+                      Quantidade disponível
                     </p>
                     <p className="text-2xl font-semibold text-primary">
                       {equipment.quantityAvailable}
@@ -239,19 +239,19 @@ const EquipmentDetailContent = () => {
 
                 <div className="space-y-4">
                   <div>
-                    <p className="text-sm text-muted-foreground mb-1">Equipment ID</p>
+                    <p className="text-sm text-muted-foreground mb-1">ID do equipamento</p>
                     <p className="font-mono text-sm">{equipment.id}</p>
                   </div>
 
                   <div>
-                    <p className="text-sm text-muted-foreground mb-1">Created</p>
+                    <p className="text-sm text-muted-foreground mb-1">Criado em</p>
                     <p className="text-sm">
                       {new Date(equipment.createdAt).toLocaleString()}
                     </p>
                   </div>
 
                   <div>
-                    <p className="text-sm text-muted-foreground mb-1">Last Updated</p>
+                    <p className="text-sm text-muted-foreground mb-1">Última atualização</p>
                     <p className="text-sm">
                       {new Date(equipment.updatedAt).toLocaleString()}
                     </p>
@@ -264,7 +264,7 @@ const EquipmentDetailContent = () => {
                     className="w-full"
                   >
                     <Package className="mr-2 h-4 w-4" />
-                    Checkout Equipment
+                    Retirar equipamento
                   </Button>
                 </div>
               )}
@@ -278,12 +278,12 @@ const EquipmentDetailContent = () => {
                 <div className="flex items-center justify-between py-2">
                   <span className="text-sm text-muted-foreground">Can be loaned out</span>
                   <Badge variant={equipment.quantityAvailable > 0 && equipment.status !== 'DISCARDED' ? "default" : "secondary"}>
-                    {equipment.quantityAvailable > 0 && equipment.status !== 'DISCARDED' ? "Yes" : "No"}
+                    {equipment.quantityAvailable > 0 && equipment.status !== 'DISCARDED' ? "Sim" : "Não"}
                   </Badge>
                 </div>
                 <div className="flex items-center justify-between py-2">
                   <span className="text-sm text-muted-foreground">
-                    Utilization Rate
+                    Taxa de utilização
                   </span>
                   <span className="font-medium">
                     {equipment.totalQuantity > 0
@@ -303,9 +303,9 @@ const EquipmentDetailContent = () => {
         <Dialog open={showCheckoutDialog} onOpenChange={setShowCheckoutDialog}>
           <DialogContent className="max-w-md">
             <DialogHeader>
-              <DialogTitle>Checkout Equipment</DialogTitle>
+              <DialogTitle>Retirar equipamento</DialogTitle>
               <DialogDescription>
-                Select the quantity you'd like to check out.
+                Selecione a quantidade que deseja retirar.
               </DialogDescription>
             </DialogHeader>
 
@@ -320,7 +320,7 @@ const EquipmentDetailContent = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="quantity">Quantity</Label>
+                    <Label htmlFor="quantity">Quantidade</Label>
                     <Input
                       id="quantity"
                       type="number"
@@ -348,10 +348,10 @@ const EquipmentDetailContent = () => {
                   onClick={() => setShowCheckoutDialog(false)}
                   disabled={isCheckingOut}
                 >
-                  Cancel
+                  Cancelar
                 </Button>
                 <Button onClick={handleCheckout} disabled={isCheckingOut}>
-                  {isCheckingOut ? "Processing..." : "Confirm Checkout"}
+                  {isCheckingOut ? "Processando..." : "Confirmar retirada"}
                 </Button>
               </div>
             </div>

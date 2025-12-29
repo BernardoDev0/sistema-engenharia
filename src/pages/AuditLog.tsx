@@ -34,14 +34,14 @@ const AuditLogContent = () => {
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Card className="max-w-md bg-card/70 backdrop-blur-xl border-border/60 shadow-lg">
           <CardHeader>
-            <CardTitle>Access restricted</CardTitle>
+            <CardTitle>Acesso restrito</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              The audit log is restricted to admin and compliance roles.
+              O log de auditoria é restrito a papéis de administração e compliance.
             </p>
             <Button className="mt-4" variant="outline" onClick={() => navigate("/dashboard")}>
-              Back to dashboard
+              Voltar para o painel
             </Button>
           </CardContent>
         </Card>
@@ -54,13 +54,13 @@ const AuditLogContent = () => {
       <header className="border-b border-border/60 bg-background/70 backdrop-blur-xl">
         <div className="container mx-auto flex items-center justify-between px-4 py-4">
           <div className="flex items-center gap-6">
-            <h1 className="text-xl font-semibold tracking-tight">Audit Log</h1>
+            <h1 className="text-xl font-semibold tracking-tight">Log de auditoria</h1>
             <nav className="flex gap-2 text-sm">
               <Button variant="ghost" onClick={() => navigate("/dashboard")}>
-                Home
+                Início
               </Button>
               <Button variant="ghost" onClick={() => navigate("/executive-dashboard")}>
-                Executive
+                Executivo
               </Button>
             </nav>
           </div>
@@ -69,7 +69,7 @@ const AuditLogContent = () => {
               Compliance
             </Badge>
             <Button variant="outline" onClick={signOut}>
-              Sign Out
+              Sair
             </Button>
           </div>
         </div>
@@ -79,25 +79,24 @@ const AuditLogContent = () => {
         <section>
           <Card className="bg-card/70 backdrop-blur-xl border-border/60 shadow-lg">
             <CardHeader>
-              <CardTitle className="text-base font-semibold">Recent activity</CardTitle>
+              <CardTitle className="text-base font-semibold">Atividade recente</CardTitle>
             </CardHeader>
             <CardContent>
               {isLoading ? (
-                <div className="py-12 text-center text-sm text-muted-foreground">Loading audit trail…</div>
+                <div className="py-12 text-center text-sm text-muted-foreground">Carregando trilha de auditoria…</div>
               ) : !logs || logs.length === 0 ? (
                 <div className="py-12 text-center text-sm text-muted-foreground">
-                  No audit entries recorded yet. Critical actions such as loans, returns and damage
-                  reports will appear here.
+                  Nenhum registro de auditoria ainda. Ações críticas como empréstimos, devoluções e relatos de dano aparecerão aqui.
                 </div>
               ) : (
                 <div className="overflow-x-auto">
                   <table className="min-w-full text-sm">
                     <thead className="border-b border-border/60 text-xs text-muted-foreground">
                       <tr>
-                        <th className="py-2 text-left font-medium">Time</th>
-                        <th className="py-2 text-left font-medium">Action</th>
-                        <th className="py-2 text-left font-medium">Entity</th>
-                        <th className="py-2 text-left font-medium">Entity ID</th>
+                        <th className="py-2 text-left font-medium">Hora</th>
+                        <th className="py-2 text-left font-medium">Ação</th>
+                        <th className="py-2 text-left font-medium">Entidade</th>
+                        <th className="py-2 text-left font-medium">ID da entidade</th>
                       </tr>
                     </thead>
                     <tbody>
