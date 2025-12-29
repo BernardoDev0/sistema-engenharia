@@ -79,7 +79,7 @@ const ExecutiveDashboardContent = () => {
 
   if (!isExecutive) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="flex min-h-[calc(100vh-3rem)] items-center justify-center bg-background">
         <Card className="max-w-md bg-background/60 backdrop-blur-xl border-border/60 shadow-lg">
           <CardHeader>
             <CardTitle>Acesso restrito</CardTitle>
@@ -102,39 +102,7 @@ const ExecutiveDashboardContent = () => {
     .map((m) => ({ period: m.period, value: m.value }));
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-background/60">
-      <header className="border-b border-border/60 bg-background/70 backdrop-blur-xl">
-        <div className="container mx-auto flex items-center justify-between px-4 py-4">
-          <div className="flex items-center gap-6">
-            <h1 className="text-xl font-semibold tracking-tight">Visão executiva</h1>
-            <nav className="flex gap-2 text-sm">
-              <Button variant="ghost" onClick={() => navigate("/dashboard")}>
-                Início
-              </Button>
-              <Button variant="ghost" onClick={() => navigate("/equipment")}>
-                Equipamentos
-              </Button>
-              <Button variant="ghost" onClick={() => navigate("/esg-reports")}>
-                Relatórios ESG
-              </Button>
-              {(roles.includes("ADMIN") || roles.includes("COMPLIANCE_ESG")) && (
-                <Button variant="ghost" onClick={() => navigate("/audit-log")}>
-                  Log de auditoria
-                </Button>
-              )}
-            </nav>
-          </div>
-          <div className="flex items-center gap-3">
-            <Badge variant="outline" className="rounded-full px-3 py-1 text-xs tracking-wide">
-              Executivo
-            </Badge>
-            <Button variant="outline" onClick={signOut}>
-              Sair
-            </Button>
-          </div>
-        </div>
-      </header>
-
+    <div className="min-h-[calc(100vh-3rem)] bg-gradient-to-br from-background via-background to-background/60">
       <main className="container mx-auto px-4 py-8 space-y-6">
         <section className="grid gap-4 md:grid-cols-3">
           <Card className="bg-card/70 backdrop-blur-xl border-border/60 shadow-lg">
