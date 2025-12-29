@@ -18,6 +18,9 @@ import ExecutiveDashboard from "@/pages/ExecutiveDashboard";
 import ESGReports from "@/pages/ESGReports";
 import AuditLog from "@/pages/AuditLog";
 import NotFound from "@/pages/NotFound";
+import FinanceSuppliers from "@/pages/FinanceSuppliers";
+import FinanceContracts from "@/pages/FinanceContracts";
+import FinanceOverview from "@/pages/FinanceOverview";
 
 const queryClient = new QueryClient();
 
@@ -50,6 +53,9 @@ export const AppRoot = () => (
                 <Route path="executive-dashboard" element={<ExecutiveDashboard />} />
                 <Route path="esg-reports" element={<ESGReports />} />
                 <Route path="audit-log" element={<AuditLog />} />
+                <Route path="finance/overview" element={<FinanceOverview />} />
+                <Route path="finance/suppliers" element={<FinanceSuppliers />} />
+                <Route path="finance/contracts" element={<FinanceContracts />} />
               </Route>
 
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
