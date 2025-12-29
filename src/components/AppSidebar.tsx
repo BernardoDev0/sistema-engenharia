@@ -133,121 +133,130 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar
-      collapsible="icon"
-      className="border-r border-sidebar-border bg-sidebar text-sidebar-foreground shadow-[0_0_40px_rgba(15,23,42,0.7)]"
-    >
-      <SidebarHeader className="pb-1">
-        <div className="flex items-center gap-2 px-2">
-          <div className="h-8 w-8 rounded-full bg-primary/30 shadow-[0_0_20px_rgba(59,130,246,0.7)]" />
-          <div className="flex flex-col group-data-[collapsible=icon]:hidden">
-            <span className="text-[10px] uppercase tracking-[0.24em] text-sidebar-foreground/60">
-              Plataforma ESG
-            </span>
-            <span className="text-sm font-semibold">Equipment Control</span>
+    <Sidebar collapsible="icon" className="border-r border-sidebar-border bg-background/80 text-sidebar-foreground">
+      <div className="flex h-full flex-col gap-4 px-3 py-4 font-sans">
+        <SidebarHeader className="pb-0">
+          <div className="flex items-center gap-3 rounded-2xl bg-card/80 px-3 py-2 shadow-sm">
+            <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-sidebar-primary/10 text-sidebar-primary">
+              <LayoutDashboard className="h-5 w-5" />
+            </div>
+            <div className="flex flex-col group-data-[collapsible=icon]:hidden">
+              <span className="text-[11px] font-medium uppercase tracking-[0.24em] text-sidebar-foreground/60">
+                Plataforma ESG
+              </span>
+              <span className="text-sm font-semibold">Equipment Control</span>
+            </div>
           </div>
-        </div>
-      </SidebarHeader>
+        </SidebarHeader>
 
-      <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {visibleGroups.map((group) => {
-                const Icon = group.icon;
-                const active = isGroupActive(group);
-                const hasChildren = !!group.children?.length;
-                const isOpen = openGroups[group.id] ?? true;
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupContent>
+              <SidebarMenu className="space-y-1">
+                {visibleGroups.map((group) => {
+                  const Icon = group.icon;
+                  const active = isGroupActive(group);
+                  const hasChildren = !!group.children?.length;
+                  const isOpen = openGroups[group.id] ?? true;
 
-                return (
-                  <SidebarMenuItem key={group.id}>
-                    <div className="flex items-center gap-1">
-                      <SidebarMenuButton
-                        asChild={!!group.to}
-                        isActive={active}
-                        tooltip={group.label}
-                        className="flex-1 hover-scale data-[active=true]:shadow-[0_0_0_1px_hsl(var(--sidebar-ring))] data-[active=true]:bg-sidebar-accent/70"
-                      >
-                        {group.to ? (
-                          <NavLink to={group.to} end className="flex items-center gap-2">
-                            <Icon className="h-4 w-4" />
-                            <span className="group-data-[collapsible=icon]:hidden">{group.label}</span>
-                          </NavLink>
-                        ) : (
-                          <div className="flex items-center gap-2">
-                            <Icon className="h-4 w-4" />
-                            <span className="group-data-[collapsible=icon]:hidden">{group.label}</span>
-                          </div>
-                        )}
-                      </SidebarMenuButton>
-
-                      {hasChildren && (
-                        <button
-                          type="button"
-                          onClick={() => handleToggleGroup(group.id)}
-                          className="group-data-[collapsible=icon]:hidden inline-flex h-8 w-8 items-center justify-center rounded-md text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors ml-1"
+                  return (
+                    <SidebarMenuItem key={group.id} className="mt-0">
+                      <div className="flex items-center gap-1">
+                        <SidebarMenuButton
+                          asChild={!!group.to}
+                          isActive={active}
+                          tooltip={group.label}
+                          className="flex-1 rounded-2xl bg-transparent px-3 py-2 text-[13px] font-medium data-[active=true]:bg-card data-[active=true]:shadow-md data-[active=true]:text-foreground hover:bg-card/80 hover:shadow-sm transition-all"
                         >
-                          <ChevronRight
-                            className={`h-3.5 w-3.5 transform transition-transform duration-200 ${
-                              isOpen ? "rotate-90" : "rotate-0"
-                            }`}
-                          />
-                        </button>
+                          {group.to ? (
+                            <NavLink to={group.to} end className="flex items-center gap-3">
+                              <div className="flex h-8 w-8 items-center justify-center rounded-2xl bg-sidebar-primary/5 text-sidebar-primary">
+                                <Icon className="h-4 w-4" />
+                              </div>
+                              <span className="group-data-[collapsible=icon]:hidden">
+                                {group.label}
+                              </span>
+                            </NavLink>
+                          ) : (
+                            <div className="flex items-center gap-3">
+                              <div className="flex h-8 w-8 items-center justify-center rounded-2xl bg-sidebar-primary/5 text-sidebar-primary">
+                                <Icon className="h-4 w-4" />
+                              </div>
+                              <span className="group-data-[collapsible=icon]:hidden">
+                                {group.label}
+                              </span>
+                            </div>
+                          )}
+                        </SidebarMenuButton>
+
+                        {hasChildren && (
+                          <button
+                            type="button"
+                            onClick={() => handleToggleGroup(group.id)}
+                            className="group-data-[collapsible=icon]:hidden inline-flex h-8 w-8 items-center justify-center rounded-xl text-sidebar-foreground/70 hover:bg-card/80 hover:text-sidebar-primary transition-colors ml-1"
+                          >
+                            <ChevronRight
+                              className={`h-3.5 w-3.5 transform transition-transform duration-200 ${
+                                isOpen ? "rotate-90" : "rotate-0"
+                              }`}
+                            />
+                          </button>
+                        )}
+                      </div>
+
+                      {hasChildren && isOpen && sidebarState !== "collapsed" && (
+                        <SidebarMenuSub className="border-l-0 px-0 pl-4">
+                          {group.children!.filter((child) => canAccess(child.roles)).map((child) => {
+                            const childActive = isActivePath(child.to);
+                            const key = `${group.id}-${child.to}-${child.label}`;
+                            return (
+                              <li key={key}>
+                                <SidebarMenuSubButton
+                                  asChild
+                                  size="sm"
+                                  isActive={childActive}
+                                  className="hover-scale data-[active=true]:bg-card data-[active=true]:text-foreground rounded-xl px-3"
+                                >
+                                  <NavLink to={child.to} end className="flex items-center gap-2 text-[12px]">
+                                    <span className="h-1.5 w-1.5 rounded-full bg-sidebar-foreground/40" />
+                                    <span>{child.label}</span>
+                                  </NavLink>
+                                </SidebarMenuSubButton>
+                              </li>
+                            );
+                          })}
+                        </SidebarMenuSub>
                       )}
-                    </div>
+                    </SidebarMenuItem>
+                  );
+                })}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </SidebarContent>
 
-                    {hasChildren && isOpen && sidebarState !== "collapsed" && (
-                      <SidebarMenuSub>
-                        {group.children!.filter((child) => canAccess(child.roles)).map((child) => {
-                          const childActive = isActivePath(child.to);
-                          const key = `${group.id}-${child.to}-${child.label}`;
-                          return (
-                            <li key={key}>
-                              <SidebarMenuSubButton
-                                asChild
-                                size="sm"
-                                isActive={childActive}
-                                className="hover-scale data-[active=true]:shadow-[0_0_0_1px_hsl(var(--sidebar-ring))]"
-                              >
-                                <NavLink to={child.to} end className="flex items-center gap-2">
-                                  <span className="h-1.5 w-1.5 rounded-full bg-sidebar-foreground/60" />
-                                  <span>{child.label}</span>
-                                </NavLink>
-                              </SidebarMenuSubButton>
-                            </li>
-                          );
-                        })}
-                      </SidebarMenuSub>
-                    )}
-                  </SidebarMenuItem>
-                );
-              })}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-      </SidebarContent>
+        <SidebarFooter className="mt-auto space-y-2 border-t border-sidebar-border pt-3">
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className="flex w-full items-center gap-2 rounded-2xl bg-card/60 px-3 py-2 text-[13px] text-sidebar-foreground/80 hover:bg-card hover:text-foreground transition-colors"
+          >
+            {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            <span className="group-data-[collapsible=icon]:hidden">
+              {theme === "dark" ? "Modo claro" : "Modo escuro"}
+            </span>
+          </button>
 
-      <SidebarFooter className="mt-auto space-y-2 border-t border-sidebar-border pt-3">
-        <button
-          type="button"
-          onClick={toggleTheme}
-          className="flex w-full items-center gap-2 rounded-md px-2 py-2 text-sm text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors hover-scale"
-        >
-          {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-          <span className="group-data-[collapsible=icon]:hidden">
-            {theme === "dark" ? "Modo claro" : "Modo escuro"}
-          </span>
-        </button>
-
-        <button
-          type="button"
-          onClick={signOut}
-          className="flex w-full items-center gap-2 rounded-md px-2 py-2 text-sm text-destructive hover:bg-destructive/20 hover:text-destructive-foreground transition-colors hover-scale"
-        >
-          <LogOut className="h-4 w-4" />
-          <span className="group-data-[collapsible=icon]:hidden">Sair</span>
-        </button>
-      </SidebarFooter>
+          <button
+            type="button"
+            onClick={signOut}
+            className="flex w-full items-center gap-2 rounded-2xl bg-destructive/5 px-3 py-2 text-[13px] text-destructive hover:bg-destructive/15 hover:text-destructive-foreground transition-colors"
+          >
+            <LogOut className="h-4 w-4" />
+            <span className="group-data-[collapsible=icon]:hidden">Sair</span>
+          </button>
+        </SidebarFooter>
+      </div>
     </Sidebar>
   );
 }
