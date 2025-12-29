@@ -6,8 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { AppLayout } from "@/components/layout/AppLayout";
 
 const DashboardContent = () => {
-  const { user, roles, signOut } = useAuth();
-  const navigate = useNavigate();
+  const { user, roles } = useAuth();
 
   return (
     <div className="min-h-[calc(100vh-3rem)] bg-background">
