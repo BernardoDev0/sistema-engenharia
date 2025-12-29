@@ -191,23 +191,23 @@ const EquipmentContent = () => {
       <header className="border-b bg-card">
         <div className="container mx-auto flex items-center justify-between px-4 py-4">
           <div className="flex items-center gap-6">
-            <h1 className="text-xl font-semibold">Equipment</h1>
+            <h1 className="text-xl font-semibold">Equipamentos</h1>
             <nav className="flex gap-4">
               <Button variant="ghost" onClick={() => navigate("/dashboard")}>
-                Dashboard
+                Painel
               </Button>
               <Button variant="ghost" onClick={() => navigate("/my-equipment")}>
-                My Equipment
+                Meus equipamentos
               </Button>
               {isAdmin && (
                 <Button variant="ghost" onClick={() => navigate("/users")}>
-                  Users
+                  Usuários
                 </Button>
               )}
             </nav>
           </div>
           <Button variant="outline" onClick={signOut}>
-            Sign Out
+            Sair
           </Button>
         </div>
       </header>
@@ -215,28 +215,28 @@ const EquipmentContent = () => {
       <main className="container mx-auto px-4 py-8">
         <div className="mb-6 flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-semibold">Equipment Inventory</h2>
+            <h2 className="text-2xl font-semibold">Inventário de equipamentos</h2>
             <p className="text-sm text-muted-foreground">
-              Track and manage equipment across all locations
+              Acompanhe e gerencie equipamentos em todas as localidades
             </p>
           </div>
 
           {isAdmin && (
             <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
               <DialogTrigger asChild>
-                <Button>Add Equipment</Button>
+                <Button>Adicionar equipamento</Button>
               </DialogTrigger>
               <DialogContent className="max-w-md">
                 <DialogHeader>
-                  <DialogTitle>Add New Equipment</DialogTitle>
+                  <DialogTitle>Adicionar novo equipamento</DialogTitle>
                   <DialogDescription>
-                    Register new equipment in the system inventory.
+                    Registre novos equipamentos no inventário do sistema.
                   </DialogDescription>
                 </DialogHeader>
 
                 <form onSubmit={handleCreateEquipment} className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="name">Equipment Name</Label>
+                    <Label htmlFor="name">Nome do equipamento</Label>
                     <Input
                       id="name"
                       type="text"
@@ -251,7 +251,7 @@ const EquipmentContent = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="category">Category</Label>
+                    <Label htmlFor="category">Categoria</Label>
                     <Input
                       id="category"
                       type="text"
@@ -266,7 +266,7 @@ const EquipmentContent = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="certification">Certification (Optional)</Label>
+                    <Label htmlFor="certification">Certificação (opcional)</Label>
                     <Input
                       id="certification"
                       type="text"
@@ -293,16 +293,16 @@ const EquipmentContent = () => {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="AVAILABLE">Available</SelectItem>
-                        <SelectItem value="IN_USE">In Use</SelectItem>
-                        <SelectItem value="MAINTENANCE">Maintenance</SelectItem>
-                        <SelectItem value="DISCARDED">Discarded</SelectItem>
+                        <SelectItem value="AVAILABLE">Disponível</SelectItem>
+                        <SelectItem value="IN_USE">Em uso</SelectItem>
+                        <SelectItem value="MAINTENANCE">Em manutenção</SelectItem>
+                        <SelectItem value="DISCARDED">Descartado</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="totalQuantity">Total Quantity</Label>
+                    <Label htmlFor="totalQuantity">Quantidade total</Label>
                     <Input
                       id="totalQuantity"
                       type="number"
@@ -325,10 +325,10 @@ const EquipmentContent = () => {
                       onClick={() => setIsCreateDialogOpen(false)}
                       disabled={isCreating}
                     >
-                      Cancel
+                      Cancelar
                     </Button>
                     <Button type="submit" disabled={isCreating}>
-                      {isCreating ? "Creating..." : "Create Equipment"}
+                      {isCreating ? "Criando..." : "Criar equipamento"}
                     </Button>
                   </div>
                 </form>
@@ -341,17 +341,17 @@ const EquipmentContent = () => {
           <div className="flex items-center justify-center py-12">
             <div className="text-center">
               <div className="mb-4 h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent mx-auto" />
-              <p className="text-sm text-muted-foreground">Loading equipment...</p>
+              <p className="text-sm text-muted-foreground">Carregando equipamentos...</p>
             </div>
           </div>
         ) : equipment.length === 0 ? (
           <div className="flex items-center justify-center py-12">
             <div className="text-center space-y-4">
-              <h3 className="text-lg font-medium">No equipment yet</h3>
+              <h3 className="text-lg font-medium">Nenhum equipamento ainda</h3>
               <p className="text-sm text-muted-foreground max-w-md">
                 {isAdmin
-                  ? "Get started by adding your first piece of equipment to the inventory."
-                  : "No equipment has been added to the system yet. Contact an administrator."}
+                  ? "Comece adicionando o primeiro equipamento ao inventário."
+                  : "Nenhum equipamento foi cadastrado no sistema ainda. Fale com um administrador."}
               </p>
             </div>
           </div>

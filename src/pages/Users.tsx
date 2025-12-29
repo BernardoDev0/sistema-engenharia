@@ -238,30 +238,30 @@ const UsersContent = () => {
       <header className="border-b bg-card">
         <div className="container mx-auto flex items-center justify-between px-4 py-4">
           <div className="flex items-center gap-6">
-            <h1 className="text-xl font-semibold">User Management</h1>
+            <h1 className="text-xl font-semibold">Gestão de Usuários</h1>
             <nav className="flex gap-4">
               <Button
                 variant="ghost"
                 onClick={() => navigate("/dashboard")}
               >
-                Dashboard
+                Painel
               </Button>
               <Button
                 variant="ghost"
                 onClick={() => navigate("/equipment")}
               >
-                Equipment
+                Equipamentos
               </Button>
               <Button
                 variant="ghost"
                 onClick={() => navigate("/my-equipment")}
               >
-                My Equipment
+                Meus equipamentos
               </Button>
             </nav>
           </div>
           <Button variant="outline" onClick={signOut}>
-            Sign Out
+            Sair
           </Button>
         </div>
       </header>
@@ -269,27 +269,27 @@ const UsersContent = () => {
       <main className="container mx-auto px-4 py-8">
         <div className="mb-6 flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-semibold">Users</h2>
+            <h2 className="text-2xl font-semibold">Usuários</h2>
             <p className="text-sm text-muted-foreground">
-              Manage system users and their roles
+              Gerencie os usuários do sistema e seus papéis
             </p>
           </div>
 
           <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
             <DialogTrigger asChild>
-              <Button>Create User</Button>
+              <Button>Criar usuário</Button>
             </DialogTrigger>
             <DialogContent className="max-w-md">
               <DialogHeader>
-                <DialogTitle>Create New User</DialogTitle>
+                <DialogTitle>Criar novo usuário</DialogTitle>
                 <DialogDescription>
-                  Add a new user to the system with their role and permissions.
+                  Adicione um novo usuário ao sistema com seu papel e permissões.
                 </DialogDescription>
               </DialogHeader>
 
               <form onSubmit={handleCreateUser} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email">E-mail</Label>
                   <Input
                     id="email"
                     type="email"
@@ -304,7 +304,7 @@ const UsersContent = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="displayName">Display Name</Label>
+                  <Label htmlFor="displayName">Nome exibido</Label>
                   <Input
                     id="displayName"
                     type="text"
@@ -319,7 +319,7 @@ const UsersContent = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="password">Senha</Label>
                   <Input
                     id="password"
                     type="password"
@@ -334,7 +334,7 @@ const UsersContent = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="kind">User Type</Label>
+                  <Label htmlFor="kind">Tipo de usuário</Label>
                   <Select
                     value={kind}
                     onValueChange={(value: "admin" | "employee" | "external") =>
@@ -346,15 +346,15 @@ const UsersContent = () => {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="admin">Admin</SelectItem>
-                      <SelectItem value="employee">Employee</SelectItem>
-                      <SelectItem value="external">External</SelectItem>
+                      <SelectItem value="admin">Administrador</SelectItem>
+                      <SelectItem value="employee">Colaborador interno</SelectItem>
+                      <SelectItem value="external">Externo</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="role">Role</Label>
+                  <Label htmlFor="role">Papel</Label>
                   <Select
                     value={role}
                     onValueChange={(value: RoleName) => setRole(value)}
@@ -364,15 +364,15 @@ const UsersContent = () => {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="ADMIN">Admin</SelectItem>
+                      <SelectItem value="ADMIN">Administrador</SelectItem>
                       <SelectItem value="OPERATIONS_MANAGER">
-                        Operations Manager
+                        Gestor de operações
                       </SelectItem>
                       <SelectItem value="FIELD_TECHNICIAN">
-                        Field Technician
+                        Técnico de campo
                       </SelectItem>
                       <SelectItem value="COMPLIANCE_ESG">
-                        Compliance ESG
+                        Compliance / ESG
                       </SelectItem>
                     </SelectContent>
                   </Select>
@@ -385,10 +385,10 @@ const UsersContent = () => {
                     onClick={() => setIsCreateDialogOpen(false)}
                     disabled={isCreating}
                   >
-                    Cancel
+                    Cancelar
                   </Button>
                   <Button type="submit" disabled={isCreating}>
-                    {isCreating ? "Creating..." : "Create User"}
+                    {isCreating ? "Criando..." : "Criar usuário"}
                   </Button>
                 </div>
               </form>
@@ -400,16 +400,16 @@ const UsersContent = () => {
           <div className="flex items-center justify-center py-12">
             <div className="text-center">
               <div className="mb-4 h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent mx-auto" />
-              <p className="text-sm text-muted-foreground">Loading users...</p>
+              <p className="text-sm text-muted-foreground">Carregando usuários...</p>
             </div>
           </div>
         ) : users.length === 0 ? (
           <div className="flex items-center justify-center py-12">
             <div className="text-center space-y-4">
-              <h3 className="text-lg font-medium">No users yet</h3>
+              <h3 className="text-lg font-medium">Nenhum usuário ainda</h3>
               <p className="text-sm text-muted-foreground max-w-md">
-                Get started by creating your first user. All users must be created
-                by an administrator.
+                Comece criando o primeiro usuário. Todos os usuários devem ser
+                criados por um administrador.
               </p>
             </div>
           </div>
@@ -444,7 +444,7 @@ const UsersContent = () => {
                     size="sm"
                     onClick={() => handleToggleUserStatus(user.id, user.is_active)}
                   >
-                    {user.is_active ? "Deactivate" : "Activate"}
+                    {user.is_active ? "Desativar" : "Ativar"}
                   </Button>
                 </div>
               </div>

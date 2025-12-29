@@ -83,14 +83,14 @@ const ExecutiveDashboardContent = () => {
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Card className="max-w-md bg-background/60 backdrop-blur-xl border-border/60 shadow-lg">
           <CardHeader>
-            <CardTitle>Access restricted</CardTitle>
+            <CardTitle>Acesso restrito</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              The executive dashboard is only available to admin, operations and compliance roles.
+              O painel executivo está disponível apenas para papéis de administração, operações e compliance.
             </p>
             <Button className="mt-4" variant="outline" onClick={() => navigate("/dashboard")}>
-              Back to dashboard
+              Voltar para o painel
             </Button>
           </CardContent>
         </Card>
@@ -107,30 +107,30 @@ const ExecutiveDashboardContent = () => {
       <header className="border-b border-border/60 bg-background/70 backdrop-blur-xl">
         <div className="container mx-auto flex items-center justify-between px-4 py-4">
           <div className="flex items-center gap-6">
-            <h1 className="text-xl font-semibold tracking-tight">Executive Overview</h1>
+            <h1 className="text-xl font-semibold tracking-tight">Visão executiva</h1>
             <nav className="flex gap-2 text-sm">
               <Button variant="ghost" onClick={() => navigate("/dashboard")}>
-                Home
+                Início
               </Button>
               <Button variant="ghost" onClick={() => navigate("/equipment")}>
-                Equipment
+                Equipamentos
               </Button>
               <Button variant="ghost" onClick={() => navigate("/esg-reports")}>
-                ESG Reports
+                Relatórios ESG
               </Button>
               {(roles.includes("ADMIN") || roles.includes("COMPLIANCE_ESG")) && (
                 <Button variant="ghost" onClick={() => navigate("/audit-log")}>
-                  Audit Log
+                  Log de auditoria
                 </Button>
               )}
             </nav>
           </div>
           <div className="flex items-center gap-3">
             <Badge variant="outline" className="rounded-full px-3 py-1 text-xs tracking-wide">
-              Executive
+              Executivo
             </Badge>
             <Button variant="outline" onClick={signOut}>
-              Sign Out
+              Sair
             </Button>
           </div>
         </div>
@@ -140,35 +140,35 @@ const ExecutiveDashboardContent = () => {
         <section className="grid gap-4 md:grid-cols-3">
           <Card className="bg-card/70 backdrop-blur-xl border-border/60 shadow-lg">
             <CardHeader>
-              <CardTitle className="text-sm font-medium text-muted-foreground">Total Stock</CardTitle>
+              <CardTitle className="text-sm font-medium text-muted-foreground">Estoque total</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-3xl font-semibold">
                 {stockOverview ? stockOverview.totalQuantity : "—"}
               </p>
-              <p className="text-xs text-muted-foreground mt-1">All equipment units in the fleet</p>
+              <p className="text-xs text-muted-foreground mt-1">Todas as unidades de equipamentos na frota</p>
             </CardContent>
           </Card>
 
           <Card className="bg-card/70 backdrop-blur-xl border-border/60 shadow-lg">
             <CardHeader>
-              <CardTitle className="text-sm font-medium text-muted-foreground">Active Loans</CardTitle>
+              <CardTitle className="text-sm font-medium text-muted-foreground">Empréstimos ativos</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-3xl font-semibold">{activeLoans ? activeLoans.length : "—"}</p>
-              <p className="text-xs text-muted-foreground mt-1">Items currently checked out in the field</p>
+              <p className="text-xs text-muted-foreground mt-1">Itens atualmente emprestados em campo</p>
             </CardContent>
           </Card>
 
           <Card className="bg-card/70 backdrop-blur-xl border-border/60 shadow-lg">
             <CardHeader>
-              <CardTitle className="text-sm font-medium text-muted-foreground">Available</CardTitle>
+              <CardTitle className="text-sm font-medium text-muted-foreground">Disponível</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-3xl font-semibold">
                 {stockOverview ? stockOverview.available : "—"}
               </p>
-              <p className="text-xs text-muted-foreground mt-1">Ready-to-deploy units</p>
+              <p className="text-xs text-muted-foreground mt-1">Unidades prontas para uso</p>
             </CardContent>
           </Card>
         </section>
@@ -176,18 +176,18 @@ const ExecutiveDashboardContent = () => {
         <section className="grid gap-6 lg:grid-cols-[2fr,1.2fr] items-stretch">
           <Card className="bg-card/70 backdrop-blur-xl border-border/60 shadow-lg flex flex-col">
             <CardHeader>
-              <CardTitle className="text-base font-semibold">Incident rate over time</CardTitle>
+              <CardTitle className="text-base font-semibold">Taxa de incidentes ao longo do tempo</CardTitle>
             </CardHeader>
             <CardContent className="flex-1">
               {esgChartData.length === 0 ? (
                 <div className="h-64 flex items-center justify-center text-sm text-muted-foreground">
-                  No ESG data available yet. Metrics will appear as real loans and returns accumulate.
+                  Ainda não há dados ESG. As métricas aparecerão conforme os empréstimos e devoluções acontecerem.
                 </div>
               ) : (
                 <ChartContainer
                   config={{
                     incident: {
-                      label: "Incident rate",
+                      label: "Taxa de incidentes",
                       color: "hsl(var(--destructive))",
                     },
                   }}
@@ -200,7 +200,7 @@ const ExecutiveDashboardContent = () => {
                       <YAxis tickLine={false} axisLine={false} tickFormatter={(v) => `${v}%`} />
                       <ChartTooltip content={<ChartTooltipContent />} />
                       <Legend />
-                      <Bar dataKey="value" name="Incident rate" fill="var(--color-incident, hsl(var(--destructive)))" radius={6} />
+                      <Bar dataKey="value" name="Taxa de incidentes" fill="var(--color-incident, hsl(var(--destructive)))" radius={6} />
                     </BarChart>
                   </ResponsiveContainer>
                 </ChartContainer>
@@ -210,16 +210,16 @@ const ExecutiveDashboardContent = () => {
 
           <Card className="bg-card/70 backdrop-blur-xl border-border/60 shadow-lg">
             <CardHeader>
-              <CardTitle className="text-base font-semibold">Summary</CardTitle>
+              <CardTitle className="text-base font-semibold">Resumo</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 text-sm text-muted-foreground">
               <p>
-                The executive dashboard surfaces live operational and ESG indicators based purely on real
-                equipment loans and returns.
+                O painel executivo mostra indicadores operacionais e ESG em tempo real, baseados apenas em
+                empréstimos e devoluções reais de equipamentos.
               </p>
               <p>
-                As more equipment circulates and damage incidents are reported, this view will reveal reuse
-                intensity, waste reduction and safety trends.
+                À medida que mais equipamentos circulam e incidentes de dano são registrados, esta visão revela
+                intensidade de reúso, redução de desperdício e tendências de segurança.
               </p>
             </CardContent>
           </Card>

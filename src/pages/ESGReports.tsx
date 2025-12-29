@@ -63,14 +63,14 @@ const ESGReportsContent = () => {
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Card className="max-w-md bg-card/70 backdrop-blur-xl border-border/60 shadow-lg">
           <CardHeader>
-            <CardTitle>Access restricted</CardTitle>
+            <CardTitle>Acesso restrito</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              ESG reports are available to admin, operations and compliance users only.
+              Os relatórios ESG estão disponíveis apenas para usuários de administração, operações e compliance.
             </p>
             <Button className="mt-4" variant="outline" onClick={() => navigate("/dashboard")}>
-              Back to dashboard
+              Voltar para o painel
             </Button>
           </CardContent>
         </Card>
@@ -83,13 +83,13 @@ const ESGReportsContent = () => {
       <header className="border-b border-border/60 bg-background/70 backdrop-blur-xl">
         <div className="container mx-auto flex items-center justify-between px-4 py-4">
           <div className="flex items-center gap-6">
-            <h1 className="text-xl font-semibold tracking-tight">ESG Reports</h1>
+            <h1 className="text-xl font-semibold tracking-tight">Relatórios ESG</h1>
             <nav className="flex gap-2 text-sm">
               <Button variant="ghost" onClick={() => navigate("/dashboard")}>
-                Home
+                Início
               </Button>
               <Button variant="ghost" onClick={() => navigate("/executive-dashboard")}>
-                Executive
+                Executivo
               </Button>
             </nav>
           </div>
@@ -98,7 +98,7 @@ const ESGReportsContent = () => {
               ESG
             </Badge>
             <Button variant="outline" onClick={signOut}>
-              Sign Out
+              Sair
             </Button>
           </div>
         </div>
@@ -107,24 +107,24 @@ const ESGReportsContent = () => {
       <main className="container mx-auto px-4 py-8 space-y-6">
         <section className="flex flex-wrap items-center justify-between gap-4">
           <div className="space-y-1">
-            <h2 className="text-base font-semibold">Filters</h2>
-            <p className="text-xs text-muted-foreground">Metrics are derived directly from real loans and returns.</p>
+            <h2 className="text-base font-semibold">Filtros</h2>
+            <p className="text-xs text-muted-foreground">As métricas são derivadas diretamente de empréstimos e devoluções reais.</p>
           </div>
           <div className="flex items-center gap-3">
             <Select value={granularity} onValueChange={(v: "month" | "year") => setGranularity(v)}>
               <SelectTrigger className="w-[140px]">
-                <SelectValue placeholder="Granularity" />
+                <SelectValue placeholder="Granularidade" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="month">Monthly</SelectItem>
-                <SelectItem value="year">Yearly</SelectItem>
+                <SelectItem value="month">Mensal</SelectItem>
+                <SelectItem value="year">Anual</SelectItem>
               </SelectContent>
             </Select>
             <Button size="sm" variant="outline" onClick={() => handleExport("csv")}>
-              Export CSV
+              Exportar CSV
             </Button>
             <Button size="sm" onClick={() => handleExport("pdf")}>
-              Export PDF
+              Exportar PDF
             </Button>
           </div>
         </section>
@@ -132,24 +132,24 @@ const ESGReportsContent = () => {
         <section>
           <Card className="bg-card/70 backdrop-blur-xl border-border/60 shadow-lg">
             <CardHeader>
-              <CardTitle className="text-base font-semibold">ESG metric table</CardTitle>
+              <CardTitle className="text-base font-semibold">Tabela de métricas ESG</CardTitle>
             </CardHeader>
             <CardContent>
               {isLoading ? (
-                <div className="py-12 text-center text-sm text-muted-foreground">Loading ESG metrics…</div>
+                <div className="py-12 text-center text-sm text-muted-foreground">Carregando métricas ESG…</div>
               ) : !metrics || metrics.length === 0 ? (
                 <div className="py-12 text-center text-sm text-muted-foreground">
-                  No ESG data available yet. Once real equipment activity accumulates, metrics will appear here.
+                  Ainda não há dados ESG. Quando a atividade real de equipamentos aumentar, as métricas aparecerão aqui.
                 </div>
               ) : (
                 <div className="overflow-x-auto">
                   <table className="min-w-full text-sm">
                     <thead className="border-b border-border/60 text-xs text-muted-foreground">
                       <tr>
-                        <th className="py-2 text-left font-medium">Period</th>
-                        <th className="py-2 text-left font-medium">Type</th>
-                        <th className="py-2 text-left font-medium">Unit</th>
-                        <th className="py-2 text-right font-medium">Value</th>
+                        <th className="py-2 text-left font-medium">Período</th>
+                        <th className="py-2 text-left font-medium">Tipo</th>
+                        <th className="py-2 text-left font-medium">Unidade</th>
+                        <th className="py-2 text-right font-medium">Valor</th>
                       </tr>
                     </thead>
                     <tbody>
