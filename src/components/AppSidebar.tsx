@@ -67,7 +67,7 @@ const NAV_GROUPS: NavGroup[] = [
   },
   {
     id: "compliance",
-    label: "Compliance & ESG",
+    label: "ESG & Compliance",
     to: "/esg-reports",
     icon: ShieldCheck,
     roles: ["ADMIN", "OPERATIONS_MANAGER", "COMPLIANCE_ESG"],
@@ -78,7 +78,7 @@ const NAV_GROUPS: NavGroup[] = [
   },
   {
     id: "admin",
-    label: "Administração do Sistema",
+    label: "Usuários",
     to: "/users",
     icon: UsersIcon,
     roles: ["ADMIN"],
@@ -185,7 +185,7 @@ export function AppSidebar() {
                             </div>
                             <span>{group.label}</span>
                           </div>
-                          {hasChildren && (
+                          {hasChildren && group.id !== "admin" && (
                             <ChevronRight
                               className={`h-3.5 w-3.5 transform text-sidebar-foreground/70 transition-transform duration-200 ${
                                 isOpen ? "rotate-90" : "rotate-0"
