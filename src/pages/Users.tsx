@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/use-auth";
-import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -24,7 +23,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
-import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import type { RoleName } from "@/core/domain/identity/Role";
 
@@ -75,9 +73,7 @@ const UsersContent = () => {
   const [role, setRole] = useState<RoleName>("FIELD_TECHNICIAN");
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const { signOut } = useAuth();
   const { toast } = useToast();
-  const navigate = useNavigate();
 
   useEffect(() => {
     fetchUsers();
@@ -234,38 +230,7 @@ const UsersContent = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b bg-card">
-        <div className="container mx-auto flex items-center justify-between px-4 py-4">
-          <div className="flex items-center gap-6">
-            <h1 className="text-xl font-semibold">Gestão de Usuários</h1>
-            <nav className="flex gap-4">
-              <Button
-                variant="ghost"
-                onClick={() => navigate("/dashboard")}
-              >
-                Painel
-              </Button>
-              <Button
-                variant="ghost"
-                onClick={() => navigate("/equipment")}
-              >
-                Equipamentos
-              </Button>
-              <Button
-                variant="ghost"
-                onClick={() => navigate("/my-equipment")}
-              >
-                Meus equipamentos
-              </Button>
-            </nav>
-          </div>
-          <Button variant="outline" onClick={signOut}>
-            Sair
-          </Button>
-        </div>
-      </header>
-
+    <div className="min-h-[calc(100vh-3rem)] bg-background">
       <main className="container mx-auto px-4 py-8">
         <div className="mb-6 flex items-center justify-between">
           <div>
@@ -457,11 +422,7 @@ const UsersContent = () => {
 };
 
 const Users = () => {
-  return (
-    <ProtectedRoute requiredRoles={["ADMIN"]}>
-      <UsersContent />
-    </ProtectedRoute>
-  );
+  return <UsersContent />;
 };
 
 export default Users;
